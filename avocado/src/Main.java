@@ -3,8 +3,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Initialize with Singleton instances
         TaskManager taskManager = new TaskManager();
-        UserManager userManager = new UserManager();
+        UserManager userManager = UserManager.getInstance(); // Using Singleton
         CommandHistory commandHistory = new CommandHistory();
         Scanner scanner = new Scanner(System.in);
         String command;
@@ -20,15 +21,16 @@ public class Main {
         String username = scanner.nextLine();
         System.out.print("Register password: ");
         String password = scanner.nextLine();
-        userManager.register(username, password);
+        userManager.registerUser(username, password);
 
         System.out.print("Login username: ");
         username = scanner.nextLine();
         System.out.print("Login password: ");
         password = scanner.nextLine();
-        loggedInUser = userManager.login(username, password);
+        boolean loginSuccessful = userManager.loginUser(username, password);
 
-        if (loggedInUser != null) {
+        if (loginSuccessful) {
+            loggedInUser = new User(username, password); // Pass both username and password
             System.out.println("Login successful!");
 
             do {
@@ -59,11 +61,13 @@ public class Main {
 
                     case "save":
                         TaskPersistence.saveTasks(taskManager.getTasks());
+                        System.out.println("Tasks saved.");
                         break;
 
                     case "load":
                         taskManager.getTasks().clear(); // Clear current tasks
                         taskManager.getTasks().addAll(TaskPersistence.loadTasks());
+                        System.out.println("Tasks loaded.");
                         break;
 
                     case "sort":
