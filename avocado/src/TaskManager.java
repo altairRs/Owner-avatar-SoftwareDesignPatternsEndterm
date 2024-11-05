@@ -12,13 +12,18 @@ public class TaskManager {
         tasks.add(task);
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
     public void listTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks available.");
-        } else {
-            for (Task task : tasks) {
-                System.out.println(task);
-            }
+            return;
+        }
+
+        for (Task task : tasks) {
+            System.out.println(task);
         }
     }
 }
