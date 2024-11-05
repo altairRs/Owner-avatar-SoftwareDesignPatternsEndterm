@@ -11,6 +11,6 @@ public class CommandHistory {
         if (!history.isEmpty()) {
             return history.pop();
         }
-        return null; // No command to undo
+        return null;
     }
 }

@@ -6,17 +6,17 @@ public class UserManager {
 
     public boolean register(String username, String password) {
         if (users.containsKey(username)) {
-            return false; // User already exists
+            return false;
         }
         users.put(username, new User(username, password));
-        return true; // Registration successful
+        return true;
     }
 
     public User login(String username, String password) {
         User user = users.get(username);
         if (user != null && user.getPassword().equals(password)) {
-            return user; // Login successful
+            return user;
         }
-        return null; // Login failed
+        return null;
     }
 }
